@@ -1,0 +1,74 @@
+schema_version = 2
+
+[board]
+name = "onclite"
+soc = "MSM8953"
+soc_source = "msm8953"
+os_profile = "ipados-17.7.11-21H461"
+description = "Xiaomi Redmi 7 / Redmi Y3 (onclite), Qualcomm MSM8953 Snapdragon 632, 3 GiB RAM"
+kit = "onclite"
+
+[components]
+include = ["ArmDTPlatform", "ArmCpu", "SoftwareAES", "XnuPrelink", "DarwinBoot"]
+
+[kernel]
+defconfig = "onclite_defconfig"
+config_fragments = ["arch:configs/common.config", "soc:configs/msm8953.config", "os:configs/ipados.config"]
+patch_series = ["device:patches/xnu/onclite-series", "soc:patches/xnu/series"]
+
+[device_tree]
+source = "device:dts/onclite.dts"
+include_dirs = ["soc:dts"]
+
+[firmware]
+# Firmware reference: ishakumari5/edk2-msm, `onclite` branch, commit 3aea0f8.
+# Built with: ./build.sh --device onclite --release RELEASE
+# Output: Build/onclite/RELEASE_GCC5/boot.img (and FV/MSM8953_UEFI.fd)
+# Onclite branch values:
+#   FD_BASE = 0x9C000000, FD_SIZE = 0x02000000 (32 MiB)
+#   boot image: base 0x80000000, kernel_offset 0x8000,
+#               ramdisk_offset 0x01000000, tags_offset 0x100,
+#               pagesize 2048, header_version 1
+config = "onclite"
+dsc = "Platform/Xiaomi/msm8953/onclite.dsc"
+fd = "Build/onclite/RELEASE_GCC5/FV/MSM8953_UEFI.fd"
+preflight = []
+submodules = []
+patches = []
+packages = ["{uefi}", "{tree}/package", "{tree}/drivers/DarwinBoot", "{edk2}"]
+
+[firmware.defines]
+DEVICE_MODEL = "Redmi 7"
+FD_BASE = "0x9C000000"
+FD_SIZE = "0x02000000"
+
+[bootimg]
+base = 0x80000000
+kernel_offset = 0x8000
+ramdisk_offset = 0x1000000
+tags_offset = 0x100
+pagesize = 2048
+header_version = 1
+
+[payload]
+volume = "ONCLITE"
+size_mib = 192
+loader = "firmware"
+title = "UniXNU"
+kernel_args = ["-v", "serial=3"]
+
+[package]
+unixnu = "../UniXNU"
+
+[package.defconfig]
+"ipados-17.7.11-21H461" = "onclite_defconfig"
+
+[payload.adt]
+chip_id = "0"
+owned_memory_size = "0xC0000000"
+root_match_volume_uuid = "REQUIRED_ROOT_VOLUME_UUID"
+cpu_regs = "0,0x100"
+psci_method = "smc"
+packed_data_ramdisk = true
+ipad_identity = true
+unique_chip_id = "required"

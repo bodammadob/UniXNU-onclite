@@ -1,0 +1,49 @@
+schema_version = 1
+
+[device]
+name = "onclite"
+soc = "MSM8953"
+os_profile = "ipados-17.7.11-21H461"
+summary = "Xiaomi Redmi 7 / Redmi Y3 (onclite), Qualcomm MSM8953 Snapdragon 632. Port in progress."
+
+[[area]]
+id = "configuration"
+status = "planned"
+components = ["ArmDTPlatform", "ArmCpu", "SoftwareAES", "XnuPrelink", "DarwinBoot"]
+paths = ["board.toml", "feeds.toml", "configs/**", "dts/onclite.dts", ".gitignore", "local.toml.example"]
+inputs = ["Identify the configuration hardware, resources and existing component interfaces for onclite (MSM8953)."]
+configuration = ["Record board.toml fields, DTS properties and defconfig values used for onclite configuration."]
+procedure = ["Follow the configuration stage in the porting guide and record the actual commands."]
+findings = ["Collect the first configuration observation, its cause when established, and the resulting implementation decision."]
+completion = ["All source pins resolve; every selected component has a record; status shows the intended overrides and patch order."]
+limits = ["Hardware inputs and implementation are pending for onclite."]
+next_action = ["Inventory the required configuration inputs before implementation."]
+evidence = []
+
+[[area]]
+id = "firmware"
+status = "planned"
+components = []
+paths = ["proprietary-files.txt"]
+inputs = ["Identify the firmware and boot hardware, resources and existing component interfaces for onclite."]
+configuration = ["Record board.toml fields, DTS properties and defconfig values used for firmware and boot."]
+procedure = ["Build ishakumari5/edk2-msm with `build.sh --device onclite` for the UEFI image; integrate into UniXNU firmware step."]
+findings = ["Collect the first firmware and boot observation, its cause when established, and the resulting implementation decision."]
+completion = ["Firmware image builds, enters UniXNU, publishes the framebuffer and preserves the documented memory reservations."]
+limits = ["edk2-msm is edk2-porting based; integrating it into the UniXNU Mu-Silicium firmware step is pending."]
+next_action = ["Inventory the required firmware and boot inputs before implementation."]
+evidence = []
+
+[[area]]
+id = "device-tree"
+status = "planned"
+components = []
+paths = ["dts/onclite.dts"]
+inputs = ["Compile the board DTS and inspect the ADT resources consumed by drivers."]
+configuration = ["Fill the memory map, CPU selection, reserved memory and peripherals from onclite hardware sources."]
+procedure = ["Follow the device-tree conversion guide and compile dts/onclite.dts."]
+findings = ["Collect the first device-tree observation."]
+completion = ["Board DTS compiles to a DTB and the ADT resources match the drivers' expectations."]
+limits = ["Memory map and peripheral addresses pending from the stock onclite DTS."]
+next_action = ["Obtain the stock onclite device tree and fill dts/onclite.dts."]
+evidence = []

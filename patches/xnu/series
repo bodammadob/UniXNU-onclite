@@ -1,0 +1,9 @@
+# Board-specific XNU patches for onclite / Redmi 7
+# Applied in listed order after arch, soc, os, and component patch series.
+# Each line is a patch file path relative to patches/xnu/series directory.
+
+# Board patches go here. Example:
+# onclite-gpu-adreno506.patch
+# onclite-emmc-sdhci.patch
+
+# Empty series is valid when no board-specific patches are needed.

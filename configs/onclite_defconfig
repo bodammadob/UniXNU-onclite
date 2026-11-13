@@ -1,0 +1,10 @@
+# onclite / Redmi 7 kernel configuration (MSM8953 / Snapdragon 632, 3 GiB RAM).
+# Applied after arch:soc:os fragments; later values replace earlier ones.
+# y and n are 1 and 0, a quoted string or a number is passed through.
+CONFIG_XNU_CRYPTO_BOOTSTRAP="prelinked"
+
+# Redmi 7 uses eMMC storage, not UFS:
+# CONFIG_XNU_NATIVE_UFS is not set
+
+# No GPU driver component selected for the Adreno 506 yet:
+# CONFIG_XNU_NATIVE_ADRENO is not set

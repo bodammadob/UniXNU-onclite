@@ -1,0 +1,40 @@
+name: Build UniXNU Package
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout UniXNU-onclite
+        uses: actions/checkout@v4
+
+      - name: Checkout UniXNU build driver
+        uses: actions/checkout@v4
+        with:
+          repository: UniXNU/UniXNU
+          path: UniXNU
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y aarch64-linux-gnu-gcc nasm python3 dtc make git build-essential uuid-dev unifdef cmake ninja-build mtools
+
+      - name: Build UniXNU package
+        run: |
+          cd UniXNU
+          python3 unixnu defconfig onclite_defconfig -D ../UniXNU-onclite
+          python3 unixnu fetch -D ../UniXNU-onclite
+          python3 unixnu build package -D ../UniXNU-onclite
+
+      - name: Upload EFI artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: unixnu-efi
+          path: |
+            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/DEBUG_CLANGPDB/AARCH64/UniXNUPkg/Application/UniXNU/UniXNU/DEBUG/UniXNU.efi
+            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/DEBUG_CLANGPDB/AARCH64/UniXNUPkg/Driver/UniXNUDxe/UniXNUDxe/DEBUG/UniXNUDxe.efi
+            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/DEBUG_CLANGPDB/AARCH64/UniXNUPkg/Driver/UniXNURamDiskDxe/UniXNURamDiskDxe/DEBUG/UniXNURamDiskDxe.efi

@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y aarch64-linux-gnu-gcc nasm python3 dtc make git build-essential uuid-dev unifdef cmake ninja-build mtools
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu nasm python3 dtc make git build-essential uuid-dev unifdef cmake ninja-build mtools device-tree-compiler
 
       - name: Build UniXNU package
         run: |
@@ -35,6 +35,4 @@ jobs:
         with:
           name: unixnu-efi
           path: |
-            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/DEBUG_CLANGPDB/AARCH64/UniXNUPkg/Application/UniXNU/UniXNU/DEBUG/UniXNU.efi
-            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/DEBUG_CLANGPDB/AARCH64/UniXNUPkg/Driver/UniXNUDxe/UniXNUDxe/DEBUG/UniXNUDxe.efi
-            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/DEBUG_CLANGPDB/AARCH64/UniXNUPkg/Driver/UniXNURamDiskDxe/UniXNURamDiskDxe/DEBUG/UniXNURamDiskDxe.efi
+            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/UniXNU/**/*.efi

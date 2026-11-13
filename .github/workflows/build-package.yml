@@ -22,7 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu nasm python3 make git build-essential uuid-dev unifdef cmake ninja-build mtools device-tree-compiler
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu nasm python3 make git build-essential uuid-dev unifdef cmake ninja-build mtools device-tree-compiler lld
+          sudo ln -sf /usr/bin/ld.lld /usr/bin/lld-link
 
       - name: Build UniXNU package
         run: |

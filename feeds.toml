@@ -1,7 +1,5 @@
 [[source]]
 name = "msm8953"
 kind = "soc"
-# Local SoC repository (UniXNU-msm8953-common) wrapping edk2-msm onclite branch.
-# Publish to github.com/UniXNU/UniXNU-msm8953-common and replace `local` with
-# `git` + `commit` when ready.
-local = "../UniXNU-msm8953-common"
+git = "https://github.com/bodammadob/UniXNU-msm8953-common"
+commit = "4fcd7b2afff3dfad095abb2c8b3aa0f1d04f038e"

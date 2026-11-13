@@ -34,10 +34,10 @@ jobs:
 
       - name: List all Build contents
         run: |
-          find out/onclite/ipados-17.7.11-21H461/onclite/package/Build -type f 2>/dev/null | head -50 || echo "No Build directory"
+          find UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build -type f 2>/dev/null | head -50 || echo "No Build directory"
       - name: Upload all build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: unixnu-build
           path: |
-            out/onclite/ipados-17.7.11-21H461/onclite/package/Build/**/*
+            UniXNU/out/onclite/ipados-17.7.11-21H461/onclite/package/Build/**/*
